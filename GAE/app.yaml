@@ -1,0 +1,21 @@
+#app.yaml
+
+runtime: python27
+api_version: 1
+threadsafe: true
+# / = the character /
+# . = any character
+# * = repeated between 0 and infinity times
+handlers:
+- url: /.*     #regex = regular expression
+  script: main.app
+
+- url: /css
+  script: css
+
+- url: /js
+  script: js
+
+libraries:
+- name: jinja2
+  version: latest

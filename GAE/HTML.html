@@ -1,0 +1,26 @@
+<html>
+<head>
+  <title>Welcome to Memegen</title>
+  <link rel='stylesheet' href="css/style.css" />
+</head>
+
+<body>
+  <h1>Meme Generator</h1>
+  <img height='200px' width='250px' src="https://static.twentytwowords.com/wp-content/uploads/storming51-675x420.png">
+  <h3>Welcome to the best Meme Generator out there!</h3>
+
+  <form method='post' action='/result'>
+
+    {% for url in imgs %}
+    <img height="100px" width="100px" src="{{url}}">
+    <input type='radio' name='template' value="{{url}}" />
+    {% endfor %}
+    <br>
+    <input type='text' name='top-line' />
+    <input type='text' name='bottom-line' />
+    <input type='submit' value='Go!' />
+  </form>
+
+</body>
+
+</html>

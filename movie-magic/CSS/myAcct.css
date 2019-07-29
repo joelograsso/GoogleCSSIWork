@@ -1,0 +1,51 @@
+.jumbotron{
+  margin: 5% 20% auto 20%;
+}
+.oneResult{
+  margin: 0px 20px 50px 20px;
+}
+body{
+  background-image: url(https://www.total-croatia-news.com/media/k2/items/cache/4481022f2c240e105013544d6a8799a0_XL.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.class{
+  align-self: center;
+}
+.info{
+  color: white;
+  font-size: 20px
+}
+div.info{
+  height: 500px;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+.subtitle{
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    margin-top: 30px;
+}
+.subsubtitle{
+    font-family: 'Cinzel', serif;
+    color: white;
+    text-align: center;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+}
+.tv{
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+}
+.resultsDisplay{
+  margin-bottom: 30px;
+}
+.img_wrapper{
+  align-items: center;
+}
+.col{
+  padding: 20px;
+}

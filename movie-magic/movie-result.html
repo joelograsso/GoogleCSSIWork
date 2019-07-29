@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>All About {{selected_movie}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700&display=swap" rel="stylesheet">
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+    <style>
+      .jumbotron{
+        margin: 10% 20% auto 20%;
+      }
+      .showtimes{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        padding-left: 50px;
+        padding-right: 50px;
+      }
+      .showtime{
+        /* display: flex;
+        flex-direction: column; */
+        /* justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        border: 1px solid black; */
+      }
+      .body{
+        padding: 5%;
+      }
+      .heading{
+        text-align: center;
+        margin: 10px;
+      }
+      .card{
+        margin: 20px 20px 20px 0px ;
+      }
+      body{
+        background: url(images/curtain.png);
+        /* background-repeat: no-repeat; */
+        background-size: cover;
+      }
+      .subtitle{
+          font-family: 'Cinzel', serif;
+          font-weight: 700;
+          text-align: center;
+          margin: 10px;
+          margin-top: 30px;
+          color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+        <nav class="navbar navbar-light bg-light bar">
+          <form action = "/verify" method = 'post' class="form-inline">
+            <input name="searchBar" class="form-control mr-sm-2" type="search" placeholder="Search for another movie" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </nav>
+
+        <ul class="nav navbar-nav navbar-right">
+          <a {{hideLogOut}} class="nav-link" href='/my-account' role="button">My Account &nbsp</a>
+          <li>
+            <a {{hideLogIn}} class="btn btn-light" href='/login' role="button">Login</a>
+          </li>
+          <li>
+            <a {{hideLogOut}} class="btn btn-secondary" href={{logout_url}} role="button">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+<div>
+  {% if not showtime_dict %}
+  <div class="jumbotron">
+    <h1 class="display-4">There are no showtimes for this movie.</h1>
+    <hr class="my-4">
+    <button onclick="goBack()" class="btn btn-primary">Choose a different movie</button>
+  </div>
+  {%else%}
+      <h4 class="display-4 subtitle"> Nearby Showtimes for <strong> {{selected_movie}}</strong> </h4>
+
+      <div class="showtimes">
+          {% for theatre,showtimes in showtime_dict.items() %}
+          <div class="card showtime col-lg-3">
+            <div class="card-body">
+              <h5 class="card-title">Theatre: {{theatre}}</h5>
+
+              <div class="dropdown show">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  See specific times
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  {% for showtime in showtimes %}
+                  {% if showtime.ticketURI: %}
+                  <a class="dropdown-item" href="{{showtime.ticketURI}}">{{showtime.dateTime}}</a>
+                  {% else %}
+                  <a class="dropdown-item">{{showtime.dateTime}}</a>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+          </div>
+          {% endif %}
+          <br><br><br>
+    <script>
+      function goBack() { //goes back without actually reloading the page :D
+        window.history.go(-2);
+      }
+    </script>
+  </body>
+</html>
